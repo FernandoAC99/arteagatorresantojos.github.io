@@ -1,1040 +1,605 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú - [Tu Negocio]</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap');
-
-        body {
-            font-family: 'Comfortaa', sans-serif;
-            background-color: #f8f0e3;
-            color: #4a4a4a;
-        }
-
-        .scroll-container::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .scroll-container::-webkit-scrollbar-thumb {
-            background-color: #a0522d;
-            border-radius: 4px;
-        }
-
-        .scroll-container::-webkit-scrollbar-track {
-            background-color: #f3e8d2;
-        }
-
-        .modal-overlay {
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-backdrop-blur {
-            backdrop-filter: blur(8px);
-        }
-
-        /* Estilos para el modo oscuro */
-        body.dark-mode {
-            background-color: #1a1a1a;
-            color: #d1d1d1;
-        }
-
-        .dark-mode .bg-white {
-            background-color: #2d2d2d;
-            color: #d1d1d1;
-        }
-
-        .dark-mode .text-gray-600 {
-            color: #a0a0a0;
-        }
-
-        .dark-mode .text-gray-500 {
-            color: #8c8c8c;
-        }
-
-        .dark-mode .bg-[#fffaf5] {
-            background-color: #2d2d2d;
-        }
-
-        .dark-mode .border-gray-200,
-        .dark-mode .border-gray-300 {
-            border-color: #4a4a4a;
-        }
-
-        .dark-mode .bg-gray-100 {
-            background-color: #2d2d2d;
-            color: #d1d1d1;
-        }
-
-        .dark-mode input {
-            background-color: #3d3d3d;
-            border-color: #555;
-            color: #d1d1d1;
-        }
-
-        /* Estilos del mensaje flotante */
-        #snackbar {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 10px;
-            padding: 16px;
-            position: fixed;
-            z-index: 999;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            font-size: 17px;
-        }
-
-        #snackbar.show {
-            visibility: visible;
-            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        @-webkit-keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
-
-            to {
-                bottom: 30px;
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
-
-            to {
-                bottom: 30px;
-                opacity: 1;
-            }
-        }
-
-        @-webkit-keyframes fadeout {
-            from {
-                bottom: 30px;
-                opacity: 1;
-            }
-
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeout {
-            from {
-                bottom: 30px;
-                opacity: 1;
-            }
-
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menú - [Tu Negocio] (con validación elegante)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap');
+    body{font-family:'Comfortaa',sans-serif;background-color:#f8f0e3;color:#4a4a4a}
+    .scroll-container::-webkit-scrollbar{width:8px}
+    .scroll-container::-webkit-scrollbar-thumb{background-color:#a0522d;border-radius:4px}
+    .scroll-container::-webkit-scrollbar-track{background-color:#f3e8d2}
+    .modal-overlay{background-color:rgba(0,0,0,.5)}
+    .modal-backdrop-blur{backdrop-filter:blur(8px)}
+    body.dark-mode{background-color:#1a1a1a;color:#d1d1d1}
+    .dark-mode .bg-white{background-color:#2d2d2d;color:#d1d1d1}
+    .dark-mode .text-gray-600{color:#a0a0a0}
+    .dark-mode .text-gray-500{color:#8c8c8c}
+    .dark-mode .bg-[#fffaf5]{background-color:#2d2d2d}
+    .dark-mode .border-gray-200,.dark-mode .border-gray-300{border-color:#4a4a4a}
+    .dark-mode .bg-gray-100{background-color:#2d2d2d;color:#d1d1d1}
+    .dark-mode input{background-color:#3d3d3d;border-color:#555;color:#d1d1d1}
+    #snackbar{visibility:hidden;min-width:250px;background-color:#333;color:#fff;text-align:center;border-radius:10px;padding:16px;position:fixed;z-index:999;left:50%;bottom:30px;transform:translateX(-50%);font-size:17px}
+    #snackbar.show{visibility:visible;-webkit-animation:fadein .5s,fadeout .5s 2.5s;animation:fadein .5s,fadeout .5s 2.5s}
+    @-webkit-keyframes fadein{from{bottom:0;opacity:0}to{bottom:30px;opacity:1}}
+    @keyframes fadein{from{bottom:0;opacity:0}to{bottom:30px;opacity:1}}
+    @-webkit-keyframes fadeout{from{bottom:30px;opacity:1}to{bottom:0;opacity:0}}
+    @keyframes fadeout{from{bottom:30px;opacity:1}to{bottom:0;opacity:0}}
+  </style>
 </head>
-
 <body class="p-4 md:p-8">
 
-    <!-- Modal de bienvenida para el nombre del cliente -->
-    <div id="welcome-modal" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center">
-            <div class="text-6xl mb-4">🍟</div>
-            <h2 class="text-2xl font-bold text-[#a0522d] mb-4">¡Bienvenido!</h2>
-            <p class="text-gray-600 mb-6">Por favor, ingresa tu nombre para comenzar tu pedido.</p>
-            <input type="text" id="client-name-input" placeholder="Tu nombre..."
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d17a3a] mb-4">
-            <button id="start-order-button"
-                class="w-full bg-[#a0522d] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#804225] opacity-50 cursor-not-allowed"
+  <!-- Modal reutilizable de validación -->
+  <div id="app-modal" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-[60] hidden" aria-hidden="true">
+    <div class="bg-white rounded-xl shadow-2xl p-6 md:p-8 max-w-md w-full relative">
+      <button id="app-modal-close" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold text-lg" aria-label="Cerrar modal">&times;</button>
+      <h3 id="app-modal-title" class="text-2xl font-bold text-[#a0522d] mb-3">Revisa esto</h3>
+      <p id="app-modal-message" class="text-gray-700 leading-relaxed"></p>
+      <div class="mt-6 flex justify-end">
+        <button id="app-modal-accept" class="bg-[#a0522d] text-white px-4 py-2 rounded-full font-bold shadow hover:bg-[#804225]">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de bienvenida para el nombre del cliente -->
+  <div id="welcome-modal" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center">
+      <div class="text-6xl mb-4">🍟</div>
+      <h2 class="text-2xl font-bold text-[#a0522d] mb-4">¡Bienvenido!</h2>
+      <p class="text-gray-600 mb-6">Por favor, ingresa tu nombre para comenzar tu pedido.</p>
+      <input type="text" id="client-name-input" placeholder="Tu nombre..." inputmode="text" autocomplete="name"
+             maxlength="40"
+             class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d17a3a] mb-4">
+      <p id="client-name-hint" class="text-xs text-gray-500 mb-3">De 2 a 40 caracteres. Solo letras y espacios.</p>
+      <button id="start-order-button"
+              class="w-full bg-[#a0522d] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#804225] opacity-50 cursor-not-allowed"
+              disabled>
+        Comenzar a ordenar
+      </button>
+    </div>
+  </div>
+
+  <!-- Banner de cerrado temporal -->
+  <div id="closed-banner" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center relative">
+      <button id="closed-banner-close-btn"
+              class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold text-lg">&times;</button>
+      <h2 class="text-2xl font-bold text-[#a0522d] mb-4">¡Hola! Parece que llegaste un poco tarde 🕰️ o un poco temprano 😅</h2>
+      <p class="text-gray-600 mb-6">El restaurante está cerrado por el momento.</p>
+      <p class="text-gray-600 mb-2">Horarios de servicio:</p>
+      <p class="text-gray-600 mb-2">🗓️ Viernes y Sábado:</p>
+      <p class="text-gray-600">⏰ 6:00 p.m. - 10:00 p.m.</p>
+    </div>
+  </div>
+
+  <div id="main-content" class="hidden">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-10">
+      <header class="text-center mb-8 flex flex-col items-center">
+        <div class="w-full flex justify-end">
+          <button id="theme-toggle-button"
+                  class="p-2 rounded-full text-gray-700 bg-gray-100 hover:bg-gray-200 dark-mode:bg-[#4a4a4a] dark-mode:text-gray-200 dark-mode:hover:bg-[#5a5a5a] transition duration-200">
+            <span id="theme-icon">☀️</span>
+          </button>
+        </div>
+        <h1 class="text-4xl font-extrabold text-[#a0522d] mb-2">🍴 MENÚ 🍴</h1>
+        <p class="text-gray-600">Personaliza tu pedido y disfruta.</p>
+      </header>
+
+      <main class="flex flex-col md:flex-row gap-8">
+        <div class="flex-1">
+          <section class="mb-8">
+            <div class="flex items-center mb-4">
+              <hr class="flex-grow border-t border-[#a0522d]">
+              <h2 class="text-2xl font-bold text-[#a0522d] mx-4">PLATILLOS SALADOS</h2>
+              <hr class="flex-grow border-t border-[#a0522d]">
+            </div>
+            <div id="platillos-salados" class="space-y-6"></div>
+          </section>
+
+          <section class="mb-8">
+            <div class="flex items-center mb-4">
+              <hr class="flex-grow border-t border-[#a0522d]">
+              <h2 class="text-2xl font-bold text-[#a0522d] mx-4">POSTRES</h2>
+              <hr class="flex-grow border-t border-[#a0522d]">
+            </div>
+            <div id="postres" class="space-y-6"></div>
+          </section>
+        </div>
+
+        <aside class="w-full md:w-1/3 bg-[#fffaf5] p-6 rounded-lg shadow-inner sticky top-8 h-fit">
+          <h2 class="text-2xl font-bold text-[#a0522d] mb-4">🛒 Tu Carrito</h2>
+          <div id="cart-items" class="space-y-4 max-h-96 overflow-y-auto scroll-container">
+            <p class="text-gray-500 text-center">Tu carrito está vacío.</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <div class="flex justify-between items-center font-bold text-lg mb-4">
+              <span>Total:</span><span id="total-price">$0.00</span>
+            </div>
+            <button id="open-checkout-modal"
+                    class="w-full bg-[#34a853] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#2e7d32]">
+              <span class="inline-block mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-5 h-5 inline-block" fill="currentColor">
+                  <path d="M380.9 97.1C339.4 57.3 283.4 34.5 224 34.5c-59.4 0-115.4 22.8-156.9 62.6-41.5 40-64.4 94.6-64.4 152.9 0 58.3 22.9 112.9 64.4 152.9 41.5 40 97.5 62.6 156.9 62.6 59.4 0 115.4-22.6 156.9-62.6 41.5-40 64.4-94.6 64.4-152.9 0-58.3-22.9-112.9-64.4-152.9zM224 416c-48.4 0-93.1-18.7-127.3-52.9-34.2-34.2-52.9-78.9-52.9-127.3s18.7-93.1 52.9-127.3c34.2-34.2 78.9-52.9 127.3-52.9s93.1 18.7 127.3 52.9c34.2 34.2 52.9 78.9 52.9 127.3s-18.7 93.1-52.9 127.3c-34.2 34.2-78.9 52.9-127.3 52.9zM292.8 206.1c11.3 25.1 14.2 46.8 14.2 74.3 0 27.5-2.9 49.2-14.2 74.3-11.3 25.1-28 44.8-51 59.2-23.1 14.4-51.5 21.6-86 21.6-34.5 0-62.9-7.2-86-21.6-23-14.4-39.7-34.1-51-59.2-11.3-25.1-14.2-46.8-14.2-74.3s2.9-49.2 14.2-74.3c11.3-25.1 28-44.8 51-59.2 23.1-14.4 51.5-21.6 86 21.6 23 14.4 39.7 34.1 51 59.2zM224 288c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z"/>
+                </svg>
+              </span>
+              Enviar Pedido por WhatsApp
+            </button>
+          </div>
+        </aside>
+      </main>
+
+      <section class="mt-12 text-center">
+        <h2 class="text-2xl font-bold text-[#a0522d] mb-4">🚚 Entrega & 💳 Pagos</h2>
+        <div class="text-gray-600 text-sm">
+          <p class="mb-2"><strong>Entrega:</strong> Colonia Milpillas y alrededores - sin costo extra</p>
+          <div id="payment-info-box" class="p-4 bg-gray-100 rounded-lg inline-block text-left">
+            <p class="font-semibold">Pagos:</p>
+            <ul class="list-disc list-inside mx-auto max-w-xs">
+              <li>Efectivo</li>
+              <li>Transferencia bancaria:</li>
+              <ul class="list-none ml-4 mt-1 space-y-1 text-xs">
+                <li>Tarjeta: <code>4152314433494054</code></li>
+                <li>Banco: BBVA</li>
+                <li>Titular: Fernando Arteaga Cortez</li>
+                <li>Concepto: <code>Pago comida + nombre del cliente</code></li>
+              </ul>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Modal de personalización -->
+  <div id="customize-modal" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-40 hidden" aria-hidden="true">
+    <div class="bg-white rounded-lg p-6 md:p-8 max-w-md w-full shadow-2xl relative">
+      <button onclick="closeCustomizeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold text-lg" aria-label="Cerrar">&times;</button>
+      <h3 class="text-2xl font-bold text-[#a0522d] mb-4" id="modal-item-name"></h3>
+      <div id="modal-options-container" class="space-y-4"></div>
+      <div class="mt-6 flex justify-between items-center font-bold text-xl">
+        <span>Total del artículo:</span><span id="modal-item-price">$0.00</span>
+      </div>
+      <button onclick="addToCartFromModal()"
+              class="mt-6 w-full bg-[#a0522d] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#804225]">
+        Agregar al carrito
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal de checkout -->
+  <div id="checkout-modal" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50 hidden" aria-hidden="true">
+    <div class="bg-white rounded-lg p-6 md:p-8 max-w-sm w-full shadow-2xl relative">
+      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold text-lg" aria-label="Cerrar">&times;</button>
+      <h3 class="text-2xl font-bold text-[#a0522d] mb-4">Detalles del Pedido</h3>
+      <p id="checkout-total" class="text-center font-bold text-xl text-[#d17a3a] mb-4"></p>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 font-semibold mb-2">Método de Pago</label>
+        <div class="flex space-x-4">
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="payment-method" value="Efectivo" class="text-[#a0522d]" checked>
+            <span>💰 Efectivo</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="payment-method" value="Transferencia" class="text-[#a0522d]">
+            <span>💳 Transferencia</span>
+          </label>
+        </div>
+      </div>
+
+      <div id="cash-payment-info" class="mb-4">
+        <label for="cash-amount" class="block text-gray-700 font-semibold mb-2">¿Con cuánto pagarás? (Opcional)</label>
+        <input type="number" id="cash-amount" placeholder="Ej: 200.00"
+       inputmode="decimal"
+       min="0" step="0.01" max="9999"
+       oninput="if(this.value.length > 4) this.value = this.value.slice(0,4);"
+       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d17a3a]">
+        <p class="text-xs text-gray-500 mt-1">Debe ser mayor o igual al total.</p>
+      </div>
+
+      <div id="transfer-info" class="mb-4 hidden">
+        <div class="p-4 bg-gray-100 rounded-lg text-left">
+          <p class="font-semibold mb-2">Datos de la cuenta bancaria:</p>
+          <ul class="list-none space-y-1 text-sm">
+            <li>Tarjeta: <code>4152314433494054</code></li>
+            <li>Banco: BBVA</li>
+            <li>Titular: Fernando Arteaga Cortez</li>
+            <li>Concepto: <code>Pago comida + nombre del cliente</code></li>
+          </ul>
+        </div>
+        <label class="flex items-center justify-center mt-4">
+          <input type="checkbox" id="transfer-understood" class="mr-2">
+          <span class="text-sm text-gray-700">Entendido, haré la transferencia con estos datos.</span>
+        </label>
+      </div>
+
+      <button id="open-delivery-modal-button"
+              class="w-full bg-[#a0522d] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#804225] opacity-50 cursor-not-allowed"
+              disabled>
+        Siguiente
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal de dirección -->
+  <div id="delivery-modal" class="fixed inset-0 modal-overlay modal-backdrop-blur flex items-center justify-center p-4 z-50 hidden" aria-hidden="true">
+    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center relative">
+      <button onclick="openCheckoutModalFromDelivery()" class="absolute top-4 left-4 text-gray-400 hover:text-gray-600 font-bold text-lg" aria-label="Regresar">&larr;</button>
+      <h3 class="text-2xl font-bold text-[#a0522d] mb-4">¿A dónde enviamos tu pedido? 🛵</h3>
+      <p class="text-gray-600 mb-6">Por favor, indica tu dirección y referencias.</p>
+      <div class="space-y-4 text-left mb-4">
+        <input type="text" id="street-input" placeholder="Calle y Número..." autocomplete="address-line1"
+               maxlength="70"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d17a3a]">
+        <input type="text" id="colony-input" placeholder="Colonia..." autocomplete="address-level2"
+               maxlength="60"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d17a3a]">
+        <input type="text" id="reference-input" placeholder="Referencias..."
+               maxlength="120"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d17a3a]">
+      </div>
+      <div class="flex flex-col space-y-4">
+        <button id="send-address-button"
+                class="w-full bg-[#34a853] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#2e7d32] opacity-50 cursor-not-allowed"
                 disabled>
-                Comenzar a ordenar
-            </button>
-        </div>
+          <span class="inline-block mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-5 h-5 inline-block" fill="currentColor">
+              <path d="M380.9 97.1C339.4 57.3 283.4 34.5 224 34.5c-59.4 0-115.4 22.8-156.9 62.6-41.5 40-64.4 94.6-64.4 152.9 0 58.3 22.9 112.9 64.4 152.9 41.5 40 97.5 62.6 156.9 62.6 59.4 0 115.4-22.6 156.9-62.6 41.5-40 64.4-94.6 64.4-152.9 0-58.3-22.9-112.9-64.4-152.9zM224 416c-48.4 0-93.1-18.7-127.3-52.9-34.2-34.2-52.9-78.9-52.9-127.3s18.7-93.1 52.9-127.3c34.2-34.2 78.9-52.9 127.3-52.9s93.1 18.7 127.3 52.9c34.2 34.2 52.9 78.9 52.9 127.3s-18.7 93.1-52.9 127.3c-34.2 34.2-78.9 52.9-127.3 52.9zM292.8 206.1c11.3 25.1 14.2 46.8 14.2 74.3 0 27.5-2.9 49.2-14.2 74.3-11.3 25.1-28 44.8-51 59.2-23.1 14.4-51.5 21.6-86 21.6-34.5 0-62.9-7.2-86-21.6-23-14.4-39.7-34.1-51-59.2-11.3-25.1-14.2-46.8-14.2-74.3s2.9-49.2 14.2-74.3c11.3-25.1 28-44.8 51-59.2 23.1-14.4 51.5 21.6 86 21.6 23 14.4 39.7 34.1 51 59.2zM224 288c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z"/>
+            </svg>
+          </span>
+          Enviar Dirección
+        </button>
+        <button id="skip-address-button" class="w-full text-gray-500 py-3 rounded-full font-bold">
+          Tu sabes donde vivo 😅👌
+        </button>
+      </div>
     </div>
+  </div>
 
-    <!-- Banner de cerrado temporal -->
-    <div id="closed-banner" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center relative">
-            <button id="closed-banner-close-btn"
-                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold text-lg">&times;</button>
-            <h2 class="text-2xl font-bold text-[#a0522d] mb-4">¡Hola! Parece que llegaste un poco tarde 🕰️ o un poco
-                temprano 😅</h2>
-            <p class="text-gray-600 mb-6">El restaurante está cerrado por el momento.</p>
-            <p class="text-gray-600 mb-2">Horarios de servicio:</p>
-            <p class="text-gray-600 mb-2">🗓️ Viernes y Sábado:</p>
-            <p class="text-gray-600">⏰ 6:00 p.m. - 10:00 p.m.</p>
-        </div>
+  <!-- Modal de confirmación final -->
+  <div id="confirmation-modal" class="fixed inset-0 modal-overlay modal-backdrop-blur flex items-center justify-center p-4 z-50 hidden" aria-hidden="true">
+    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center relative">
+      <button onclick="openDeliveryModalFromConfirmation()" class="absolute top-4 left-4 text-gray-400 hover:text-gray-600 font-bold text-lg" aria-label="Regresar">&larr;</button>
+      <h3 class="text-2xl font-bold text-[#a0522d] mb-4">¿Estás seguro de que tu pedido es correcto? 🌭🍟❓</h3>
+      <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <p class="text-sm">Una vez que envíes el pedido, podría haber errores si decides hacer algún cambio más tarde. Agradecemos tu comprensión.</p>
+      </div>
+      <div class="flex flex-col space-y-4">
+        <button id="confirm-send-button" class="w-full bg-[#a0522d] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#804225]">Sí, enviar pedido</button>
+        <button onclick="closeConfirmationModal()" class="w-full text-gray-500 py-3 rounded-full font-bold">Regresar a editar</button>
+      </div>
     </div>
+  </div>
 
-    <div id="main-content" class="hidden">
-        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-10">
+  <!-- Snackbar -->
+  <div id="snackbar"><span class="mr-2">🛒</span> ¡Producto agregado al carrito!</div>
 
-            <!-- Encabezado del Menú -->
-            <header class="text-center mb-8 flex flex-col items-center">
-                <div class="w-full flex justify-end">
-                    <button id="theme-toggle-button"
-                        class="p-2 rounded-full text-gray-700 bg-gray-100 hover:bg-gray-200 dark-mode:bg-[#4a4a4a] dark-mode:text-gray-200 dark-mode:hover:bg-[#5a5a5a] transition duration-200">
-                        <span id="theme-icon">☀️</span>
-                    </button>
-                </div>
-                <h1 class="text-4xl font-extrabold text-[#a0522d] mb-2">🍴 MENÚ 🍴</h1>
-                <p class="text-gray-600">Personaliza tu pedido y disfruta.</p>
-            </header>
-
-            <!-- Contenido principal (Menú y Carrito) -->
-            <main class="flex flex-col md:flex-row gap-8">
-                <!-- Sección de Menú -->
-                <div class="flex-1">
-                    <!-- Platillos Salados -->
-                    <section class="mb-8">
-                        <div class="flex items-center mb-4">
-                            <hr class="flex-grow border-t border-[#a0522d]">
-                            <h2 class="text-2xl font-bold text-[#a0522d] mx-4">PLATILLOS SALADOS</h2>
-                            <hr class="flex-grow border-t border-[#a0522d]">
-                        </div>
-                        <div id="platillos-salados" class="space-y-6">
-                            <!-- Items de menú se renderizarán aquí -->
-                        </div>
-                    </section>
-
-                    <!-- Postres -->
-                    <section class="mb-8">
-                        <div class="flex items-center mb-4">
-                            <hr class="flex-grow border-t border-[#a0522d]">
-                            <h2 class="text-2xl font-bold text-[#a0522d] mx-4">POSTRES</h2>
-                            <hr class="flex-grow border-t border-[#a0522d]">
-                        </div>
-                        <div id="postres" class="space-y-6">
-                            <!-- Items de menú se renderizarán aquí -->
-                        </div>
-                    </section>
-                </div>
-
-                <!-- Sección del Carrito -->
-                <aside class="w-full md:w-1/3 bg-[#fffaf5] p-6 rounded-lg shadow-inner sticky top-8 h-fit">
-                    <h2 class="text-2xl font-bold text-[#a0522d] mb-4">🛒 Tu Carrito</h2>
-                    <div id="cart-items" class="space-y-4 max-h-96 overflow-y-auto scroll-container">
-                        <p class="text-gray-500 text-center">Tu carrito está vacío.</p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-gray-200">
-                        <div class="flex justify-between items-center font-bold text-lg mb-4">
-                            <span>Total:</span>
-                            <span id="total-price">$0.00</span>
-                        </div>
-                        <button id="open-checkout-modal"
-                            class="w-full bg-[#34a853] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#2e7d32]">
-                            <span class="inline-block mr-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                                    class="w-5 h-5 inline-block" fill="currentColor">
-                                    <path
-                                        d="M380.9 97.1C339.4 57.3 283.4 34.5 224 34.5c-59.4 0-115.4 22.8-156.9 62.6-41.5 40-64.4 94.6-64.4 152.9 0 58.3 22.9 112.9 64.4 152.9 41.5 40 97.5 62.6 156.9 62.6 59.4 0 115.4-22.6 156.9-62.6 41.5-40 64.4-94.6 64.4-152.9 0-58.3-22.9-112.9-64.4-152.9zM224 416c-48.4 0-93.1-18.7-127.3-52.9-34.2-34.2-52.9-78.9-52.9-127.3s18.7-93.1 52.9-127.3c34.2-34.2 78.9-52.9 127.3-52.9s93.1 18.7 127.3 52.9c34.2 34.2 52.9 78.9 52.9 127.3s-18.7 93.1-52.9 127.3c-34.2 34.2-78.9 52.9-127.3 52.9zM292.8 206.1c11.3 25.1 14.2 46.8 14.2 74.3 0 27.5-2.9 49.2-14.2 74.3-11.3 25.1-28 44.8-51 59.2-23.1 14.4-51.5 21.6-86 21.6-34.5 0-62.9-7.2-86-21.6-23-14.4-39.7-34.1-51-59.2-11.3-25.1-14.2-46.8-14.2-74.3s2.9-49.2 14.2-74.3c11.3-25.1 28-44.8 51-59.2 23.1-14.4 51.5-21.6 86 21.6 23 14.4 39.7 34.1 51 59.2zM224 288c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z" />
-                                </svg>
-                            </span>
-                            Enviar Pedido por WhatsApp
-                        </button>
-                    </div>
-                </aside>
-            </main>
-
-            <!-- Información de Pagos y Entrega -->
-            <section class="mt-12 text-center">
-                <h2 class="text-2xl font-bold text-[#a0522d] mb-4">🚚 Entrega & 💳 Pagos</h2>
-                <div class="text-gray-600 text-sm">
-                    <p class="mb-2"><strong>Entrega:</strong> Colonia Milpillas y alrededores - sin costo extra</p>
-                    <div id="payment-info-box" class="p-4 bg-gray-100 rounded-lg inline-block text-left">
-                        <p class="font-semibold">Pagos:</p>
-                        <ul class="list-disc list-inside mx-auto max-w-xs">
-                            <li>Efectivo</li>
-                            <li>Transferencia bancaria:</li>
-                            <ul class="list-none ml-4 mt-1 space-y-1 text-xs">
-                                <li>Tarjeta: <code>4152314433494054</code></li>
-                                <li>Banco: BBVA</li>
-                                <li>Titular: Fernando Arteaga Cortez</li>
-                                <li>Concepto: <code>Pago comida + nombre del cliente</code></li>
-                            </ul>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-        </div>
+  <!-- Modal de confirmación de envío -->
+  <div id="order-sent-modal" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50 hidden" aria-hidden="true">
+    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center">
+      <div class="text-6xl mb-4">🍳👨‍🍳</div>
+      <h2 class="text-2xl font-bold text-[#a0522d] mb-4">¡Estamos preparando tu pedido!</h2>
+      <p class="text-gray-600 mb-6">Pronto recibirás la confirmación por WhatsApp.</p>
+      <button onclick="restartApp()" class="w-full bg-[#a0522d] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#804225]">Volver a ordenar</button>
     </div>
+  </div>
 
-    <!-- Modal de personalización de producto -->
-    <div id="customize-modal" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-40 hidden">
-        <div class="bg-white rounded-lg p-6 md:p-8 max-w-md w-full shadow-2xl relative">
-            <button onclick="closeCustomizeModal()"
-                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold text-lg">&times;</button>
-            <h3 class="text-2xl font-bold text-[#a0522d] mb-4" id="modal-item-name"></h3>
-            <div id="modal-options-container" class="space-y-4">
-                <!-- Opciones se renderizarán aquí -->
-            </div>
-            <div class="mt-6 flex justify-between items-center font-bold text-xl">
-                <span>Total del artículo:</span>
-                <span id="modal-item-price">$0.00</span>
-            </div>
-            <button onclick="addToCartFromModal()"
-                class="mt-6 w-full bg-[#a0522d] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#804225]">
-                Agregar al carrito
-            </button>
-        </div>
-    </div>
+  <script>
+    let clientName = '';
+    let deliveryAddress = '';
+    let paymentMethod = 'Efectivo';
+    let cashAmount = null;
 
-    <!-- Modal de checkout (pago) -->
-    <div id="checkout-modal" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-white rounded-lg p-6 md:p-8 max-w-sm w-full shadow-2xl relative">
-            <button onclick="closeCheckoutModal()"
-                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold text-lg">&times;</button>
-            <h3 class="text-2xl font-bold text-[#a0522d] mb-4">Detalles del Pedido</h3>
-            <p id="checkout-total" class="text-center font-bold text-xl text-[#d17a3a] mb-4"></p>
+    // ====== CONFIGURACIÓN RÁPIDA DE PRECIOS Y EXTRAS ======
+    const CONFIG = {
+      prices: { banderillas:30, papas:35, alitas:70, hotdog:40, crepa:35, volcan:45, platano:30, crepizza:50 },
+      extrasPricing: {
+        crepa: { included: 1, extraPrice: 10 },
+        platano: { included: 1, extraPrice: 10 }
+      }
+    };
+    // =======================================================
 
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">Método de Pago</label>
-                <div class="flex space-x-4">
-                    <label class="flex items-center space-x-2">
-                        <input type="radio" name="payment-method" value="Efectivo" class="text-[#a0522d]" checked>
-                        <span>💰 Efectivo</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="radio" name="payment-method" value="Transferencia" class="text-[#a0522d]">
-                        <span>💳 Transferencia</span>
-                    </label>
-                </div>
-            </div>
+    // --- Modal Reutilizable ---
+    function openAppModal(message, title='Revisa esto') {
+      const modal = document.getElementById('app-modal');
+      document.getElementById('app-modal-title').textContent = title;
+      document.getElementById('app-modal-message').innerHTML = message;
+      modal.classList.remove('hidden'); modal.classList.add('flex');
+      modal.setAttribute('aria-hidden','false');
+    }
+    function closeAppModal() {
+      const modal = document.getElementById('app-modal');
+      modal.classList.remove('flex'); modal.classList.add('hidden');
+      modal.setAttribute('aria-hidden','true');
+    }
+    document.getElementById('app-modal-close').addEventListener('click', closeAppModal);
+    document.getElementById('app-modal-accept').addEventListener('click', closeAppModal);
 
-            <!-- Contenedor para pago en efectivo -->
-            <div id="cash-payment-info" class="mb-4">
-                <label for="cash-amount" class="block text-gray-700 font-semibold mb-2">¿Con cuánto pagarás?
-                    (Opcional)</label>
-                <input type="number" id="cash-amount" placeholder="Ej: 200.00"
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d17a3a]">
-            </div>
+    // --- Datos del menú ---
+    const menuItems = [
+      {id:'banderillas',name:'Banderillas de salchicha empanizadas',iconUrl:'https://us.123rf.com/450wm/imdproduction/imdproduction2302/imdproduction230200018/199188495-bite-corn-dog-or-sausage-in-the-dough-icon-flat-style-vector-illustration.jpg',price:CONFIG.prices.banderillas,category:'platillos-salados',description:'Puede llevar: catsup, queso o mostaza.',toppings:[{name:'Catsup',extraPrice:0},{name:'Queso',extraPrice:0},{name:'Mostaza',extraPrice:0}]},
+      {id:'papas',name:'Orden de papas fritas',iconUrl:'https://images.vexels.com/media/users/3/271226/isolated/preview/f37958922f71c68dae1d66cbd1689691-icono-detallado-de-papas-fritas.png?w=360',price:CONFIG.prices.papas,category:'platillos-salados',description:'Con queso, catsup o salsa Valentina.',toppings:[{name:'Queso',extraPrice:0},{name:'Catsup',extraPrice:0},{name:'Salsa Valentina',extraPrice:0}]},
+      {id:'alitas',name:'Alitas de pollo estilo búfalo clásico',iconUrl:'https://i.pinimg.com/1200x/b9/09/b6/b909b62e739b4ebb2c32c08f7cf80a37.jpg',price:CONFIG.prices.alitas,category:'platillos-salados',description:'Con salsa ranch.',toppings:[{name:'Salsa Ranch',extraPrice:0}]},
+      {id:'hotdog',name:'Hotdog clásico',iconUrl:'https://cdn-icons-png.flaticon.com/512/4803/4803052.png',price:CONFIG.prices.hotdog,category:'platillos-salados',description:'Puede llevar: cebolla, tomate, mostaza, chiles en vinagre, catsup.',toppings:[{name:'Cebolla',extraPrice:0},{name:'Tomate',extraPrice:0},{name:'Mostaza',extraPrice:0},{name:'Chiles en vinagre',extraPrice:0},{name:'Catsup',extraPrice:0}]},
+      {id:'crepizza',name:'Crepizza',iconUrl:'https://cdn-icons-png.freepik.com/512/3067/3067838.png',price:CONFIG.prices.crepizza,category:'platillos-salados',description:'Crepa salada estilo pizza (salsa de tomate y queso).',toppings:[{name:'Orégano',extraPrice:0},{name:'Jalapeño',extraPrice:0},{name:'Queso extra',extraPrice:10}]},
+      {id:'crepa',name:'Crepa dulce',iconUrl:'https://cdn-icons-png.flaticon.com/512/8079/8079915.png',price:CONFIG.prices.crepa,category:'postres',description:'Incluye un ingrediente, los demás son con costo extra.',extras:[{name:'Chocolate',extraPrice:10},{name:'Mermelada de fresa',extraPrice:10},{name:'Mermelada de zarzamora',extraPrice:10},{name:'Lechera',extraPrice:10},{name:'Queso Philadelphia',extraPrice:10}]},
+      {id:'volcan',name:'Volcán de chocolate',iconUrl:'https://static.vecteezy.com/system/resources/previews/014/308/868/non_2x/cocoa-milk-cake-icon-cartoon-candy-bar-vector.jpg',price:CONFIG.prices.volcan,category:'postres',description:'Nota: es pequeño pero con mucho sabor.'},
+      {id:'platano',name:'Plátano frito',iconUrl:'https://static.vecteezy.com/system/resources/previews/010/403/525/non_2x/illustration-in-doodle-style-cartoon-bananas-simple-icon-two-yellow-ripe-bananas-clip-art-fruit-food-vector.jpg',price:CONFIG.prices.platano,category:'postres',description:'Incluye un ingrediente, los demás son con costo extra.',toppings:[{name:'Lechera',extraPrice:10},{name:'Mermelada de fresa',extraPrice:10},{name:'Mermelada de zarzamora',extraPrice:10},{name:'Nutella',extraPrice:10},{name:'Chispas de chocolate',extraPrice:10}]}
+    ];
 
-            <!-- Contenedor para información de transferencia -->
-            <div id="transfer-info" class="mb-4 hidden">
-                <div class="p-4 bg-gray-100 rounded-lg text-left">
-                    <p class="font-semibold mb-2">Datos de la cuenta bancaria:</p>
-                    <ul class="list-none space-y-1 text-sm">
-                        <li>Tarjeta: <code>4152314433494054</code></li>
-                        <li>Banco: BBVA</li>
-                        <li>Titular: Fernando Arteaga Cortez</li>
-                        <li>Concepto: <code>Pago comida + nombre del cliente</code></li>
-                    </ul>
-                </div>
-                <label class="flex items-center justify-center mt-4">
-                    <input type="checkbox" id="transfer-understood" class="mr-2">
-                    <span class="text-sm text-gray-700">Entendido, haré la transferencia con estos datos.</span>
-                </label>
-            </div>
+    let cart = [];
+    let currentItem = null;
 
-            <button id="open-delivery-modal-button"
-                class="w-full bg-[#a0522d] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#804225] opacity-50 cursor-not-allowed"
-                disabled>
-                Siguiente
-            </button>
-        </div>
-    </div>
+    function showSnackbar(){const s=document.getElementById('snackbar');s.className="show";setTimeout(()=>{s.className=s.className.replace("show","")},3000)}
 
-    <!-- Modal para la dirección de entrega -->
-    <div id="delivery-modal"
-        class="fixed inset-0 modal-overlay modal-backdrop-blur flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center">
-            <button onclick="openCheckoutModalFromDelivery()"
-                class="absolute top-4 left-4 text-gray-400 hover:text-gray-600 font-bold text-lg">&larr;</button>
-            <h3 class="text-2xl font-bold text-[#a0522d] mb-4">¿A dónde enviamos tu pedido? 🛵</h3>
-            <p class="text-gray-600 mb-6">Por favor, indica tu dirección y referencias.</p>
-            <div class="space-y-4 text-left mb-4">
-                <input type="text" id="street-input" placeholder="Calle y Número..."
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d17a3a]">
-                <input type="text" id="colony-input" placeholder="Colonia..."
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d17a3a]">
-                <input type="text" id="reference-input" placeholder="Referencias..."
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d17a3a]">
-            </div>
-            <div class="flex flex-col space-y-4">
-                <button id="send-address-button"
-                    class="w-full bg-[#34a853] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#2e7d32] opacity-50 cursor-not-allowed"
-                    disabled>
-                    <span class="inline-block mr-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-5 h-5 inline-block"
-                            fill="currentColor">
-                            <path
-                                d="M380.9 97.1C339.4 57.3 283.4 34.5 224 34.5c-59.4 0-115.4 22.8-156.9 62.6-41.5 40-64.4 94.6-64.4 152.9 0 58.3 22.9 112.9 64.4 152.9 41.5 40 97.5 62.6 156.9 62.6 59.4 0 115.4-22.6 156.9-62.6 41.5-40 64.4-94.6 64.4-152.9 0-58.3-22.9-112.9-64.4-152.9zM224 416c-48.4 0-93.1-18.7-127.3-52.9-34.2-34.2-52.9-78.9-52.9-127.3s18.7-93.1 52.9-127.3c34.2-34.2 78.9-52.9 127.3-52.9s93.1 18.7 127.3 52.9c34.2 34.2 52.9 78.9 52.9 127.3s-18.7 93.1-52.9 127.3c-34.2 34.2-78.9 52.9-127.3 52.9zM292.8 206.1c11.3 25.1 14.2 46.8 14.2 74.3 0 27.5-2.9 49.2-14.2 74.3-11.3 25.1-28 44.8-51 59.2-23.1 14.4-51.5 21.6-86 21.6-34.5 0-62.9-7.2-86-21.6-23-14.4-39.7-34.1-51-59.2-11.3-25.1-14.2-46.8-14.2-74.3s2.9-49.2 14.2-74.3c11.3-25.1 28-44.8 51-59.2 23.1-14.4 51.5-21.6 86 21.6 23 14.4 39.7 34.1 51 59.2zM224 288c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z" />
-                        </svg>
-                    </span>
-                    Enviar Dirección
-                </button>
-                <button id="skip-address-button" class="w-full text-gray-500 py-3 rounded-full font-bold">
-                    Tu sabes donde vivo 😅👌
-                </button>
-            </div>
-        </div>
-    </div>
+    function renderMenu(){
+      const ps=document.getElementById('platillos-salados'); const po=document.getElementById('postres');
+      ps.innerHTML=''; po.innerHTML='';
+      menuItems.forEach(item=>{
+        const div=document.createElement('div');
+        div.className='flex flex-col md:flex-row items-center md:items-start bg-white p-4 rounded-lg shadow-sm transition-transform duration-200 hover:scale-[1.01] cursor-pointer';
+        div.onclick=()=>openCustomizeModal(item.id);
+        const priceText=`$${item.price.toFixed(2)}`;
+        div.innerHTML=`
+          <div class="mr-4 mb-2 md:mb-0"><img src="${item.iconUrl}" alt="${item.name}" class="w-10 h-10"></div>
+          <div class="flex-grow text-center md:text-left">
+            <h3 class="font-bold text-lg">${item.name}</h3>
+            <p class="text-sm text-gray-500 mb-2 md:mb-0" id="desc-${item.id}">${item.description||''}</p>
+          </div>
+          <div class="flex items-center space-x-2 mt-2 md:mt-0 ml-auto">
+            <span class="font-bold text-md text-[#a0522d]">${priceText}</span>
+            <button onclick="event.stopPropagation(); openCustomizeModal('${item.id}');" class="p-2 bg-[#a0522d] text-white rounded-full shadow-md hover:bg-[#804225]">+</button>
+          </div>`;
+        (item.category==='platillos-salados'?ps:po).appendChild(div);
+      });
+    }
 
-    <!-- Modal de confirmación final -->
-    <div id="confirmation-modal"
-        class="fixed inset-0 modal-overlay modal-backdrop-blur flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center">
-            <button onclick="openDeliveryModalFromConfirmation()"
-                class="absolute top-4 left-4 text-gray-400 hover:text-gray-600 font-bold text-lg">&larr;</button>
-            <h3 class="text-2xl font-bold text-[#a0522d] mb-4">¿Estás seguro de que tu pedido es correcto? 🌭🍟❓</h3>
-            <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-4" role="alert">
-                <p class="text-sm">Una vez que envíes el pedido, podría haber errores si decides hacer algún cambio más
-                    tarde. Agradecemos tu comprensión.</p>
-            </div>
-            <div class="flex flex-col space-y-4">
-                <button id="confirm-send-button"
-                    class="w-full bg-[#a0522d] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#804225]">
-                    Sí, enviar pedido
-                </button>
-                <button onclick="closeConfirmationModal()" class="w-full text-gray-500 py-3 rounded-full font-bold">
-                    Regresar a editar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Snackbar para confirmación de carrito -->
-    <div id="snackbar">
-        <span class="mr-2">🛒</span> ¡Producto agregado al carrito!
-    </div>
-
-    <!-- Modal de confirmación de envío -->
-    <div id="order-sent-modal" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center">
-            <div class="text-6xl mb-4">🍳👨‍🍳</div>
-            <h2 class="text-2xl font-bold text-[#a0522d] mb-4">¡Estamos preparando tu pedido!</h2>
-            <p class="text-gray-600 mb-6">Pronto recibirás la confirmación por WhatsApp.</p>
-            <button onclick="restartApp()"
-                class="w-full bg-[#a0522d] text-white py-3 rounded-full font-bold shadow-lg transform transition duration-200 hover:scale-105 hover:bg-[#804225]">
-                Volver a ordenar
-            </button>
-        </div>
-    </div>
-
-    <script>
-        let clientName = '';
-        let deliveryAddress = '';
-        let paymentMethod = 'Efectivo';
-        let cashAmount = null;
-
-        // ====== CONFIGURACIÓN RÁPIDA DE PRECIOS Y EXTRAS ======
-        const CONFIG = {
-            prices: {
-                banderillas: 30,
-                papas: 35,
-                alitas: 70,
-                hotdog: 40,
-                crepa: 35,
-                volcan: 45,
-                platano: 30,     // precioPlatanoFrito
-                crepizza: 50     // precioCrepizza
-            },
-            // Reglas de extras por producto:
-            // - Si existe una entrada: "included" es cuántos ingredientes/toppings van incluidos,
-            //   "extraPrice" es lo que cuesta cada extra adicional.
-            // - Si NO existe entrada, se asume que los toppings usan el "extraPrice" de cada opción (dataset.price) o son gratis (0).
-            extrasPricing: {
-                crepa: { included: 1, extraPrice: 10 },
-                platano: { included: 1, extraPrice: 10 }
-                // Ejemplo de cómo agregar una regla:
-                // hotdog: { included: 0, extraPrice: 5 }
-            }
-        };
-        // =======================================================
-
-
-        // --- Datos del menú y carrito ---
-        const menuItems = [
-            {
-                id: 'banderillas', name: 'Banderillas de salchicha empanizadas', iconUrl: 'https://us.123rf.com/450wm/imdproduction/imdproduction2302/imdproduction230200018/199188495-bite-corn-dog-or-sausage-in-the-dough-icon-flat-style-vector-illustration.jpg', price: CONFIG.prices.banderillas, category: 'platillos-salados', description: 'Puede llevar: catsup, queso o mostaza.', toppings: [
-                    { name: 'Catsup', extraPrice: 0 },
-                    { name: 'Queso', extraPrice: 0 },
-                    { name: 'Mostaza', extraPrice: 0 },
-                ]
-            },
-            {
-                id: 'papas', name: 'Orden de papas fritas', iconUrl: 'https://images.vexels.com/media/users/3/271226/isolated/preview/f37958922f71c68dae1d66cbd1689691-icono-detallado-de-papas-fritas.png?w=360', price: CONFIG.prices.papas, category: 'platillos-salados', description: 'Con queso, catsup o salsa Valentina.', toppings: [
-                    { name: 'Queso', extraPrice: 0 },
-                    { name: 'Catsup', extraPrice: 0 },
-                    { name: 'Salsa Valentina', extraPrice: 0 },
-                ]
-            },
-            {
-                id: 'alitas', name: 'Alitas de pollo estilo búfalo clásico', iconUrl: 'https://i.pinimg.com/1200x/b9/09/b6/b909b62e739b4ebb2c32c08f7cf80a37.jpg', price: CONFIG.prices.alitas, category: 'platillos-salados', description: 'Con salsa ranch.', toppings: [
-                    { name: 'Salsa Ranch', extraPrice: 0 },
-                ]
-            },
-            {
-                id: 'hotdog', name: 'Hotdog clásico', iconUrl: 'https://cdn-icons-png.flaticon.com/512/4803/4803052.png', price: CONFIG.prices.hotdog, category: 'platillos-salados', description: 'Puede llevar: cebolla, tomate, mostaza, chiles en vinagre, catsup.', toppings: [
-                    { name: 'Cebolla', extraPrice: 0 },
-                    { name: 'Tomate', extraPrice: 0 },
-                    { name: 'Mostaza', extraPrice: 0 },
-                    { name: 'Chiles en vinagre', extraPrice: 0 },
-                    { name: 'Catsup', extraPrice: 0 },
-                ]
-            },
-
-            // 🔥 NUEVO: Crepizza (platillo salado)
-            {
-                id: 'crepizza', name: 'Crepizza', iconUrl: 'https://cdn-icons-png.freepik.com/512/3067/3067838.png', price: CONFIG.prices.crepizza, category: 'platillos-salados', description: 'Crepa salada estilo pizza (salsa de tomate y queso).', toppings: [
-                    { name: 'Orégano', extraPrice: 0 },
-                    { name: 'Jalapeño', extraPrice: 0 },
-                    { name: 'Queso extra', extraPrice: 10 } // si no quieres cobrarlo, pon 0
-                ]
-            },
-
-            {
-                id: 'crepa',
-                name: 'Crepa dulce',
-                iconUrl: 'https://cdn-icons-png.flaticon.com/512/8079/8079915.png',
-                price: CONFIG.prices.crepa,
-                category: 'postres',
-                description: 'Incluye un ingrediente, los demás son con costo extra.',
-                // ❌ Quitamos "Pizza" de aquí
-                extras: [
-                    { name: 'Chocolate', extraPrice: 10 },
-                    { name: 'Mermelada de fresa', extraPrice: 10 },
-                    { name: 'Mermelada de zarzamora', extraPrice: 10 },
-                    { name: 'Lechera', extraPrice: 10 },
-                    { name: 'Queso Philadelphia', extraPrice: 10 }
-                ]
-            },
-            { id: 'volcan', name: 'Volcán de chocolate', iconUrl: 'https://static.vecteezy.com/system/resources/previews/014/308/868/non_2x/cocoa-milk-cake-icon-cartoon-candy-bar-vector.jpg', price: CONFIG.prices.volcan, category: 'postres', description: 'Nota: es pequeño pero con mucho sabor.' },
-            {
-                id: 'platano', name: 'Plátano frito', iconUrl: 'https://static.vecteezy.com/system/resources/previews/010/403/525/non_2x/illustration-in-doodle-style-cartoon-bananas-simple-icon-two-yellow-ripe-bananas-clip-art-fruit-food-vector.jpg', price: CONFIG.prices.platano, category: 'postres', description: 'Incluye un ingrediente, los demás son con costo extra.', toppings: [
-                    { name: 'Lechera', extraPrice: 10 },
-                    { name: 'Mermelada de fresa', extraPrice: 10 },
-                    { name: 'Mermelada de zarzamora', extraPrice: 10 },
-                    { name: 'Nutella', extraPrice: 10 },
-                    { name: 'Chispas de chocolate', extraPrice: 10 },
-                ]
-            }
-        ];
-
-
-        let cart = [];
-        let currentItem = null;
-
-        // --- Funciones para manejar la lógica de la UI y los modales ---
-        function showSnackbar() {
-            const snackbar = document.getElementById('snackbar');
-            snackbar.className = "show";
-            setTimeout(function () { snackbar.className = snackbar.className.replace("show", ""); }, 3000);
-        }
-
-        function renderMenu() {
-            const platillosSaladosDiv = document.getElementById('platillos-salados');
-            const postresDiv = document.getElementById('postres');
-            platillosSaladosDiv.innerHTML = '';
-            postresDiv.innerHTML = '';
-
-            menuItems.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'flex flex-col md:flex-row items-center md:items-start bg-white p-4 rounded-lg shadow-sm transition-transform duration-200 hover:scale-[1.01] cursor-pointer';
-                itemDiv.onclick = () => openCustomizeModal(item.id);
-
-                const priceText = `$${item.price.toFixed(2)}`;
-
-                itemDiv.innerHTML = `
-                    <div class="mr-4 mb-2 md:mb-0">
-                    <img src="${item.iconUrl}" alt="${item.name}" class="w-10 h-10">
-                    </div>
-                    <div class="flex-grow text-center md:text-left">
-                        <h3 class="font-bold text-lg">${item.name}</h3>
-                        <p class="text-sm text-gray-500 mb-2 md:mb-0" id="desc-${item.id}">${item.description}</p>
-                    </div>
-                    <div class="flex items-center space-x-2 mt-2 md:mt-0 ml-auto">
-                        <span class="font-bold text-md text-[#a0522d]">${priceText}</span>
-                        <button onclick="event.stopPropagation(); openCustomizeModal('${item.id}');" class="p-2 bg-[#a0522d] text-white rounded-full shadow-md hover:bg-[#804225]">+</button>
-                    </div>
-                `;
-
-                if (item.category === 'platillos-salados') {
-                    platillosSaladosDiv.appendChild(itemDiv);
-                } else {
-                    postresDiv.appendChild(itemDiv);
-                }
-            });
-        }
-
-        function updateCart() {
-            const cartItemsDiv = document.getElementById('cart-items');
-            const totalPriceSpan = document.getElementById('total-price');
-            cartItemsDiv.innerHTML = '';
-            let total = 0;
-
-            if (cart.length === 0) {
-                cartItemsDiv.innerHTML = '<p class="text-gray-500 text-center">Tu carrito está vacío.</p>';
-            } else {
-                cart.forEach(item => {
-                    const cartItemDiv = document.createElement('div');
-                    cartItemDiv.className = 'flex items-start justify-between border-b pb-2 mb-2 last:border-b-0';
-                    const optionsText = item.selectedOptions && item.selectedOptions.length > 0 ? `<br/><span class="text-xs text-gray-500">${item.id === 'crepa' || item.id === 'platano' ? 'Ingredientes' : 'Toppings'}: ${item.selectedOptions.join(', ')}</span>` : '';
-                    cartItemDiv.innerHTML = `
-                        <div class="flex-grow">
-                            <p class="font-semibold">${item.name}</p>
-                            ${optionsText}
-                        </div>
-                        <div class="flex items-center space-x-2 ml-2">
-                            <span class="font-bold text-[#a0522d]">$${item.finalPrice.toFixed(2)}</span>
-                            <button onclick="removeItemFromCart(${item.cartId})" class="p-1 text-red-500 hover:text-red-700">
-                                &times;
-                            </button>
-                        </div>
-                    `;
-                    cartItemsDiv.appendChild(cartItemDiv);
-                    total += item.finalPrice;
-                });
-            }
-            totalPriceSpan.textContent = `$${total.toFixed(2)}`;
-        }
-
-        function removeItemFromCart(cartId) {
-            cart = cart.filter(item => item.cartId !== cartId);
-            updateCart();
-        }
-
-        function openCustomizeModal(itemId) {
-            currentItem = menuItems.find(item => item.id === itemId);
-            if (!currentItem) return;
-
-            const modal = document.getElementById('customize-modal');
-            const modalName = document.getElementById('modal-item-name');
-            const optionsContainer = document.getElementById('modal-options-container');
-            const itemPriceSpan = document.getElementById('modal-item-price');
-
-            modalName.textContent = currentItem.name;
-            optionsContainer.innerHTML = '';
-            itemPriceSpan.textContent = `$${currentItem.price.toFixed(2)}`;
-
-            const optionsList = currentItem.extras || currentItem.toppings;
-            const pricingRule = CONFIG.extrasPricing[currentItem.id];
-
-            let headingText = 'Este producto no tiene opciones de personalización.';
-            if (optionsList && optionsList.length > 0) {
-                if (pricingRule) {
-                    const inc = pricingRule.included ?? 0;
-                    const extra = (pricingRule.extraPrice ?? 0).toFixed(2);
-                    headingText = `Selecciona tus ingredientes (${inc} incluido(s), extra $${extra} c/u):`;
-                } else {
-                    headingText = 'Selecciona tus toppings (pueden tener costo):';
-                }
-            }
-
-            if (optionsList && optionsList.length > 0) {
-                const extrasHeader = document.createElement('h4');
-                extrasHeader.className = 'font-bold mt-4 text-sm';
-                extrasHeader.textContent = headingText;
-                optionsContainer.appendChild(extrasHeader);
-
-                optionsList.forEach(option => {
-                    const label = document.createElement('label');
-                    label.className = 'flex items-center space-x-2 text-gray-700';
-
-                    const input = document.createElement('input');
-                    input.type = 'checkbox';
-                    input.name = currentItem.id + '-option';
-                    input.value = option.name;
-                    // Para productos SIN regla en CONFIG, usamos el precio por opción (si lo hubiera)
-                    input.dataset.price = option.extraPrice ?? 0;
-                    input.addEventListener('change', updateModalPrice);
-
-                    const span = document.createElement('span');
-                    span.textContent = option.name;
-
-                    label.append(input, span);
-                    optionsContainer.appendChild(label);
-                });
-            } else {
-                optionsContainer.innerHTML = '<p class="text-center text-gray-500">Este producto no tiene opciones de personalización.</p>';
-            }
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeCustomizeModal() {
-            const modal = document.getElementById('customize-modal');
-            modal.classList.remove('flex');
-            modal.classList.add('hidden');
-            currentItem = null;
-        }
-
-        function updateModalPrice() {
-            let total = currentItem.price;
-            const optionsContainer = document.getElementById('modal-options-container');
-            const checked = optionsContainer.querySelectorAll('input[type="checkbox"]:checked');
-            const pricingRule = CONFIG.extrasPricing[currentItem.id];
-
-            if (pricingRule) {
-                const included = pricingRule.included ?? 0;
-                const extraPrice = pricingRule.extraPrice ?? 0;
-                const selectedCount = checked.length;
-                const over = Math.max(0, selectedCount - included);
-                total += over * extraPrice;
-            } else {
-                // Sin regla en CONFIG: sumamos el precio individual de cada topping (o 0 si gratis)
-                checked.forEach(input => {
-                    total += parseFloat(input.dataset.price || '0');
-                });
-            }
-
-            document.getElementById('modal-item-price').textContent = `$${total.toFixed(2)}`;
-        }
-
-        function addToCartFromModal() {
-            const optionsContainer = document.getElementById('modal-options-container');
-            const selectedOptions = [];
-            let extraPrice = 0;
-
-            const selectedCheckboxes = optionsContainer.querySelectorAll('input[type="checkbox"]:checked');
-            selectedCheckboxes.forEach(input => selectedOptions.push(input.value));
-
-            const pricingRule = CONFIG.extrasPricing[currentItem.id];
-
-            if (pricingRule) {
-                // Validación: si requiere al menos 1 incluido, pedimos seleccionar 1
-                if ((pricingRule.included ?? 0) > 0 && selectedOptions.length === 0) {
-                    alert('Por favor, selecciona al menos un ingrediente para tu pedido.');
-                    return;
-                }
-                const over = Math.max(0, selectedOptions.length - (pricingRule.included ?? 0));
-                extraPrice = over * (pricingRule.extraPrice ?? 0);
-            } else {
-                // Sin regla: usa precio por opción
-                selectedCheckboxes.forEach(input => {
-                    extraPrice += parseFloat(input.dataset.price || '0');
-                });
-            }
-
-            const newItem = {
-                ...currentItem,
-                cartId: Date.now(),
-                selectedOptions,
-                finalPrice: currentItem.price + extraPrice
-            };
-
-            cart.push(newItem);
-            updateCart();
-            closeCustomizeModal();
-            showSnackbar();
-        }
-
-        function openCheckoutModal() {
-            if (cart.length === 0) {
-                alert('Por favor, agrega productos a tu carrito antes de enviar el pedido.');
-                return;
-            }
-            const checkoutModal = document.getElementById('checkout-modal');
-            const checkoutTotal = document.getElementById('checkout-total');
-            let total = 0;
-            cart.forEach(item => total += item.finalPrice);
-            checkoutTotal.textContent = `Total: $${total.toFixed(2)}`;
-
-
-            checkoutModal.classList.remove('hidden');
-            checkoutModal.classList.add('flex');
-
-            const paymentMethodRadios = document.querySelectorAll('input[name="payment-method"]');
-            paymentMethodRadios.forEach(radio => {
-                radio.checked = radio.value === 'Efectivo';
-            });
-            document.getElementById('cash-payment-info').classList.remove('hidden');
-            document.getElementById('transfer-info').classList.add('hidden');
-
-            updateCheckoutButtonState();
-        }
-
-        function closeCheckoutModal() {
-            const checkoutModal = document.getElementById('checkout-modal');
-            checkoutModal.classList.remove('flex');
-            checkoutModal.classList.add('hidden');
-        }
-
-        function openDeliveryModal() {
-            closeCheckoutModal();
-            const deliveryModal = document.getElementById('delivery-modal');
-            deliveryModal.classList.remove('hidden');
-            deliveryModal.classList.add('flex');
-            updateDeliveryButtonState();
-        }
-
-        function closeDeliveryModal() {
-            const deliveryModal = document.getElementById('delivery-modal');
-            deliveryModal.classList.remove('flex');
-            deliveryModal.classList.add('hidden');
-        }
-
-        function openCheckoutModalFromDelivery() {
-            closeDeliveryModal();
-            openCheckoutModal();
-        }
-
-        function openConfirmationModal() {
-            closeDeliveryModal();
-            const confirmationModal = document.getElementById('confirmation-modal');
-            confirmationModal.classList.remove('hidden');
-            confirmationModal.classList.add('flex');
-        }
-
-        function closeConfirmationModal() {
-            const confirmationModal = document.getElementById('confirmation-modal');
-            confirmationModal.classList.remove('flex');
-            confirmationModal.classList.add('hidden');
-        }
-
-        function openOrderSentModal() {
-            closeConfirmationModal();
-            const orderSentModal = document.getElementById('order-sent-modal');
-            orderSentModal.classList.remove('hidden');
-            orderSentModal.classList.add('flex');
-        }
-
-        function restartApp() {
-            cart = [];
-            updateCart();
-            document.getElementById('order-sent-modal').classList.add('hidden');
-            document.getElementById('order-sent-modal').classList.remove('flex');
-            document.getElementById('welcome-modal').classList.remove('hidden');
-            document.getElementById('welcome-modal').classList.add('flex');
-            document.getElementById('client-name-input').value = '';
-            document.getElementById('start-order-button').disabled = true;
-            document.getElementById('start-order-button').classList.add('opacity-50', 'cursor-not-allowed');
-            document.getElementById('main-content').classList.add('hidden');
-        }
-
-
-        // Validación de inputs
-        document.getElementById('client-name-input').addEventListener('input', (e) => {
-            const button = document.getElementById('start-order-button');
-            button.disabled = e.target.value.trim() === '';
-            if (e.target.value.trim() !== '') {
-                button.classList.remove('opacity-50', 'cursor-not-allowed');
-            } else {
-                button.classList.add('opacity-50', 'cursor-not-allowed');
-            }
+    function updateCart(){
+      const div=document.getElementById('cart-items'); const totalSpan=document.getElementById('total-price');
+      div.innerHTML=''; let total=0;
+      if(cart.length===0){div.innerHTML='<p class="text-gray-500 text-center">Tu carrito está vacío.</p>';}
+      else{
+        cart.forEach(item=>{
+          const c=document.createElement('div');
+          c.className='flex items-start justify-between border-b pb-2 mb-2 last:border-b-0';
+          const opt = item.selectedOptions && item.selectedOptions.length>0
+            ? `<br/><span class="text-xs text-gray-500">${item.id==='crepa'||item.id==='platano'?'Ingredientes':'Toppings'}: ${item.selectedOptions.join(', ')}</span>`
+            : '';
+          c.innerHTML = `
+            <div class="flex-grow"><p class="font-semibold">${item.name}</p>${opt}</div>
+            <div class="flex items-center space-x-2 ml-2">
+              <span class="font-bold text-[#a0522d]">$${item.finalPrice.toFixed(2)}</span>
+              <button onclick="removeItemFromCart(${item.cartId})" class="p-1 text-red-500 hover:text-red-700" aria-label="Quitar del carrito">&times;</button>
+            </div>`;
+          div.appendChild(c); total+=item.finalPrice;
         });
+      }
+      totalSpan.textContent = `$${total.toFixed(2)}`;
+    }
+    function removeItemFromCart(id){cart=cart.filter(i=>i.cartId!==id);updateCart();}
 
-        document.getElementById('open-checkout-modal').addEventListener('click', openCheckoutModal);
+    function openCustomizeModal(id){
+      currentItem = menuItems.find(i=>i.id===id); if(!currentItem) return;
+      const modal=document.getElementById('customize-modal');
+      document.getElementById('modal-item-name').textContent=currentItem.name;
+      const optionsContainer=document.getElementById('modal-options-container');
+      const priceSpan=document.getElementById('modal-item-price');
+      optionsContainer.innerHTML=''; priceSpan.textContent=`$${currentItem.price.toFixed(2)}`;
 
-        // Validation for the delivery button
-        document.getElementById('open-delivery-modal-button').addEventListener('click', openDeliveryModal);
+      const optionsList = currentItem.extras || currentItem.toppings;
+      const pricingRule = CONFIG.extrasPricing[currentItem.id];
+      let headingText='Este producto no tiene opciones de personalización.';
+      if(optionsList && optionsList.length>0){
+        if(pricingRule){
+          const inc=pricingRule.included??0; const extra=(pricingRule.extraPrice??0).toFixed(2);
+          headingText=`Selecciona tus ingredientes (${inc} incluido(s), extra $${extra} c/u):`;
+        } else { headingText='Selecciona tus toppings (pueden tener costo):'; }
+      }
 
-        document.getElementById('confirm-send-button').addEventListener('click', () => {
-            sendWhatsAppMessage();
-            openOrderSentModal();
+      if(optionsList && optionsList.length>0){
+        const h=document.createElement('h4'); h.className='font-bold mt-4 text-sm'; h.textContent=headingText; optionsContainer.appendChild(h);
+        optionsList.forEach(opt=>{
+          const label=document.createElement('label'); label.className='flex items-center space-x-2 text-gray-700';
+          const input=document.createElement('input'); input.type='checkbox'; input.name=currentItem.id+'-option'; input.value=opt.name; input.dataset.price=opt.extraPrice??0; input.addEventListener('change', updateModalPrice);
+          const span=document.createElement('span'); span.textContent = opt.name + (opt.extraPrice? ` (+$${opt.extraPrice})` : '');
+          label.append(input, span); optionsContainer.appendChild(label);
         });
+      } else {
+        optionsContainer.innerHTML='<p class="text-center text-gray-500">Este producto no tiene opciones de personalización.</p>';
+      }
+      modal.classList.remove('hidden'); modal.classList.add('flex');
+    }
+    function closeCustomizeModal(){const m=document.getElementById('customize-modal'); m.classList.remove('flex'); m.classList.add('hidden'); currentItem=null;}
 
+    function updateModalPrice(){
+      let total=currentItem.price;
+      const container=document.getElementById('modal-options-container');
+      const checked=container.querySelectorAll('input[type="checkbox"]:checked');
+      const rule=CONFIG.extrasPricing[currentItem.id];
+      if(rule){
+        const included=rule.included??0; const extraPrice=rule.extraPrice??0; const selected=checked.length; const over=Math.max(0, selected - included); total += over*extraPrice;
+      } else {
+        checked.forEach(i=>{total+=parseFloat(i.dataset.price||'0')});
+      }
+      document.getElementById('modal-item-price').textContent=`$${total.toFixed(2)}`;
+    }
 
-        // Lógica de pago y envío de WhatsApp
-        const paymentRadios = document.querySelectorAll('input[name="payment-method"]');
-        paymentRadios.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                paymentMethod = e.target.value;
-                document.getElementById('cash-payment-info').classList.toggle('hidden', paymentMethod !== 'Efectivo');
-                document.getElementById('transfer-info').classList.toggle('hidden', paymentMethod !== 'Transferencia');
-                updateCheckoutButtonState();
-            });
-        });
-
-        function updateCheckoutButtonState() {
-            const openDeliveryButton = document.getElementById('open-delivery-modal-button');
-            const total = cart.reduce((sum, item) => sum + item.finalPrice, 0);
-
-            if (paymentMethod === 'Efectivo') {
-                const cashInput = document.getElementById('cash-amount');
-                const cashValue = parseFloat(cashInput.value);
-                const isValid = cashInput.value.trim() !== '' && !isNaN(cashValue) && cashValue >= total;
-                openDeliveryButton.disabled = !isValid;
-            } else if (paymentMethod === 'Transferencia') {
-                const transferCheckbox = document.getElementById('transfer-understood');
-                openDeliveryButton.disabled = !transferCheckbox.checked;
-            }
-
-            if (openDeliveryButton.disabled) {
-                openDeliveryButton.classList.add('opacity-50', 'cursor-not-allowed');
-            } else {
-                openDeliveryButton.classList.remove('opacity-50', 'cursor-not-allowed');
-            }
+    function addToCartFromModal(){
+      const container=document.getElementById('modal-options-container');
+      const selected=[]; let extraPrice=0;
+      const boxes=container.querySelectorAll('input[type="checkbox"]:checked'); boxes.forEach(i=>selected.push(i.value));
+      const rule=CONFIG.extrasPricing[currentItem.id];
+      if(rule){
+        if((rule.included??0)>0 && selected.length===0){
+          openAppModal('Selecciona al menos <b>un ingrediente</b> para continuar.','Falta elegir'); return;
         }
+        const over=Math.max(0, selected.length - (rule.included??0)); extraPrice = over*(rule.extraPrice??0);
+      } else { boxes.forEach(i=>{extraPrice+=parseFloat(i.dataset.price||'0')}); }
 
-        // Attach all event listeners to their respective elements on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('cash-amount').addEventListener('input', updateCheckoutButtonState);
-            const transferCheckbox = document.getElementById('transfer-understood');
-            if (transferCheckbox) {
-                transferCheckbox.addEventListener('change', updateCheckoutButtonState);
-            }
-            document.getElementById('open-checkout-modal').addEventListener('click', () => {
-                if (cart.length > 0) {
-                    openCheckoutModal();
-                } else {
-                    alert('Por favor, agrega productos a tu carrito antes de enviar el pedido.');
-                }
-            });
-            document.getElementById('open-delivery-modal-button').addEventListener('click', () => {
-                if (!document.getElementById('open-delivery-modal-button').disabled) {
-                    openDeliveryModal();
-                }
-            });
-            document.getElementById('street-input').addEventListener('input', updateDeliveryButtonState);
-            document.getElementById('colony-input').addEventListener('input', updateDeliveryButtonState);
-            document.getElementById('send-address-button').addEventListener('click', () => {
-                if (!document.getElementById('send-address-button').disabled) {
-                    openConfirmationModal();
-                }
-            });
-            document.getElementById('skip-address-button').addEventListener('click', () => {
-                closeDeliveryModal();
-                openConfirmationModal();
-            });
-        });
+      const item={...currentItem, cartId:Date.now(), selectedOptions:selected, finalPrice: currentItem.price + extraPrice};
+      cart.push(item); updateCart(); closeCustomizeModal(); showSnackbar();
+    }
 
+    function openCheckoutModal(){
+      if(cart.length===0){
+        openAppModal('Tu carrito está vacío. Agrega algún producto antes de continuar.','Carrito vacío'); return;
+      }
+      const modal=document.getElementById('checkout-modal'); const totalEl=document.getElementById('checkout-total');
+      let total=cart.reduce((s,i)=>s+i.finalPrice,0); totalEl.textContent=`Total: $${total.toFixed(2)}`;
+      modal.classList.remove('hidden'); modal.classList.add('flex');
 
-        function updateDeliveryButtonState() {
-            const sendWhatsappButton = document.getElementById('send-address-button');
-            const streetInput = document.getElementById('street-input');
-            const colonyInput = document.getElementById('colony-input');
-            const deliveryAddressEntered = streetInput.value.trim() !== '' && colonyInput.value.trim() !== '';
+      document.querySelectorAll('input[name="payment-method"]').forEach(r=>{r.checked=r.value==='Efectivo'});
+      document.getElementById('cash-payment-info').classList.remove('hidden');
+      document.getElementById('transfer-info').classList.add('hidden');
+      updateCheckoutButtonState();
+    }
+    function closeCheckoutModal(){const m=document.getElementById('checkout-modal'); m.classList.remove('flex'); m.classList.add('hidden');}
 
-            sendWhatsappButton.disabled = !deliveryAddressEntered;
+    function openDeliveryModal(){closeCheckoutModal(); const m=document.getElementById('delivery-modal'); m.classList.remove('hidden'); m.classList.add('flex'); updateDeliveryButtonState();}
+    function closeDeliveryModal(){const m=document.getElementById('delivery-modal'); m.classList.remove('flex'); m.classList.add('hidden');}
+    function openCheckoutModalFromDelivery(){closeDeliveryModal(); openCheckoutModal();}
+    function openConfirmationModal(){closeDeliveryModal(); const m=document.getElementById('confirmation-modal'); m.classList.remove('hidden'); m.classList.add('flex');}
+    function closeConfirmationModal(){const m=document.getElementById('confirmation-modal'); m.classList.remove('flex'); m.classList.add('hidden');}
+    function openOrderSentModal(){closeConfirmationModal(); const m=document.getElementById('order-sent-modal'); m.classList.remove('hidden'); m.classList.add('flex');}
+    function restartApp(){cart=[]; updateCart(); document.getElementById('order-sent-modal').classList.add('hidden'); document.getElementById('order-sent-modal').classList.remove('flex'); document.getElementById('welcome-modal').classList.remove('hidden'); document.getElementById('welcome-modal').classList.add('flex'); document.getElementById('client-name-input').value=''; document.getElementById('start-order-button').disabled=true; document.getElementById('start-order-button').classList.add('opacity-50','cursor-not-allowed'); document.getElementById('main-content').classList.add('hidden');}
 
-            if (sendWhatsappButton.disabled) {
-                sendWhatsappButton.classList.add('opacity-50', 'cursor-not-allowed');
-            } else {
-                sendWhatsappButton.classList.remove('opacity-50', 'cursor-not-allowed');
-            }
+    // ====== Validación de inputs ======
+    const nameInput = document.getElementById('client-name-input');
+    const startBtn = document.getElementById('start-order-button');
+    function validateName(val){
+      const trimmed = val.trim();
+      if(trimmed.length < 2) return {ok:false, msg:'Tu nombre debe tener al menos <b>2</b> caracteres.'};
+      if(trimmed.length > 40) return {ok:false, msg:'Tu nombre no puede exceder <b>40</b> caracteres.'};
+      if(!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]+$/.test(trimmed)) return {ok:false, msg:'Solo se permiten <b>letras y espacios</b>.'};
+      return {ok:true};
+    }
+    nameInput.addEventListener('input', e=>{
+      const v = validateName(e.target.value);
+      startBtn.disabled = !v.ok;
+      startBtn.classList.toggle('opacity-50', !v.ok);
+      startBtn.classList.toggle('cursor-not-allowed', !v.ok);
+    });
+
+    document.getElementById('open-checkout-modal').addEventListener('click', openCheckoutModal);
+    document.getElementById('confirm-send-button').addEventListener('click', ()=>{sendWhatsAppMessage(); openOrderSentModal();});
+
+    const paymentRadios = document.querySelectorAll('input[name="payment-method"]');
+    paymentRadios.forEach(r=>{
+      r.addEventListener('change', e=>{
+        paymentMethod=e.target.value;
+        document.getElementById('cash-payment-info').classList.toggle('hidden', paymentMethod!=='Efectivo');
+        document.getElementById('transfer-info').classList.toggle('hidden', paymentMethod!=='Transferencia');
+        updateCheckoutButtonState();
+      });
+    });
+
+    function updateCheckoutButtonState(){
+      const btn=document.getElementById('open-delivery-modal-button');
+      const total=cart.reduce((s,i)=>s+i.finalPrice,0);
+      if(paymentMethod==='Efectivo'){
+        const cashInput=document.getElementById('cash-amount');
+        let val=cashInput.value.trim();
+        if(val===''){ btn.disabled=false; } // efectivo sin especificar cambio -> permitimos
+        else{
+          const num=parseFloat(val);
+          btn.disabled = isNaN(num) || num < total;
         }
+      } else {
+        const chk=document.getElementById('transfer-understood'); btn.disabled = !chk.checked;
+      }
+      btn.classList.toggle('opacity-50', btn.disabled); btn.classList.toggle('cursor-not-allowed', btn.disabled);
+    }
 
-        function sendWhatsAppMessage() {
-            const phoneNumber = '5217774499427';
-            let total = 0;
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.getElementById('cash-amount').addEventListener('input', updateCheckoutButtonState);
+      const transferCheckbox=document.getElementById('transfer-understood'); if(transferCheckbox){ transferCheckbox.addEventListener('change', updateCheckoutButtonState); }
+      document.getElementById('open-delivery-modal-button').addEventListener('click', ()=>{ if(!document.getElementById('open-delivery-modal-button').disabled){ openDeliveryModal(); }});
+      document.getElementById('street-input').addEventListener('input', updateDeliveryButtonState);
+      document.getElementById('colony-input').addEventListener('input', updateDeliveryButtonState);
+      document.getElementById('send-address-button').addEventListener('click', ()=>{ if(!document.getElementById('send-address-button').disabled){ openConfirmationModal(); }});
+      document.getElementById('skip-address-button').addEventListener('click', ()=>{ closeDeliveryModal(); openConfirmationModal(); });
+    });
 
-            const groupedItems = cart.reduce((acc, item) => {
-                if (!acc[item.name]) {
-                    acc[item.name] = [];
-                }
-                acc[item.name].push(item);
-                return acc;
-            }, {});
+    function updateDeliveryButtonState(){
+      const btn=document.getElementById('send-address-button');
+      const street=document.getElementById('street-input').value.trim();
+      const colony=document.getElementById('colony-input').value.trim();
+      const deliveryReady = street.length>=3 && colony.length>=3;
+      btn.disabled = !deliveryReady;
+      btn.classList.toggle('opacity-50', btn.disabled);
+      btn.classList.toggle('cursor-not-allowed', btn.disabled);
+    }
 
-            let message = `¡Hola! Soy *${clientName}* y me gustaría hacer un pedido:\n\n`;
-
-            for (const itemName in groupedItems) {
-                message += `*${itemName}*\n`;
-                groupedItems[itemName].forEach((item) => {
-                    const optionsText = item.selectedOptions && item.selectedOptions.length > 0 ? `(${item.selectedOptions.join(', ')})` : '';
-                    message += `  - ${optionsText} - $${item.finalPrice.toFixed(2)}\n`;
-                    total += item.finalPrice;
-                });
-                message += `\n`;
-            }
-
-            message += `-------------------------------\n`;
-            message += `*Total: $${total.toFixed(2)}*\n\n`;
-            message += `*Método de pago: ${paymentMethod}*\n`;
-
-            if (paymentMethod === 'Efectivo') {
-                cashAmount = document.getElementById('cash-amount').value;
-                if (cashAmount) {
-                    message += `*Pagaré con: $${parseFloat(cashAmount).toFixed(2)}*\n`;
-                }
-            }
-
-            const street = document.getElementById('street-input').value;
-            const colony = document.getElementById('colony-input').value;
-            const reference = document.getElementById('reference-input').value;
-
-            if (street && colony) {
-                deliveryAddress = `*Dirección de Entrega:*\nCalle y Número: ${street}\nColonia: ${colony}\n`;
-                if (reference) {
-                    deliveryAddress += `Referencias: ${reference}\n`;
-                }
-                message += deliveryAddress;
-            } else {
-                message += `*Dirección de Entrega: Tu sabes donde vivo 😅👌*\n`;
-            }
-
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-            window.open(whatsappUrl, '_blank');
-        }
-
-        // Lógica para el modal de bienvenida
-        document.getElementById('start-order-button').addEventListener('click', () => {
-            const nameInput = document.getElementById('client-name-input');
-            clientName = nameInput.value.trim();
-            if (clientName) {
-                document.getElementById('welcome-modal').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
-                renderMenu();
-            }
+    function sendWhatsAppMessage(){
+      const phoneNumber='5217774499427';
+      let total=0;
+      const grouped=cart.reduce((acc,it)=>{(acc[it.name]??=[]).push(it);return acc;},{});
+      let message = `¡Hola! Soy *${clientName}* y me gustaría hacer un pedido:\n\n`;
+      for(const name in grouped){
+        message += `*${name}*\n`;
+        grouped[name].forEach(it=>{
+          const opts = it.selectedOptions && it.selectedOptions.length>0 ? `(${it.selectedOptions.join(', ')})` : '';
+          message += `  - ${opts} - $${it.finalPrice.toFixed(2)}\n`; total += it.finalPrice;
         });
+        message += `\n`;
+      }
+      message += `-------------------------------\n`;
+      message += `*Total: $${total.toFixed(2)}*\n\n`;
+      message += `*Método de pago: ${paymentMethod}*\n`;
 
-        // Funcionalidad del tema oscuro
-        function toggleDarkMode() {
-            const body = document.body;
-            const themeButton = document.getElementById('theme-icon');
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-                themeButton.textContent = '🌙';
-            } else {
-                localStorage.setItem('theme', 'light');
-                themeButton.textContent = '☀️';
-            }
-        }
+      if(paymentMethod==='Efectivo'){
+        cashAmount = document.getElementById('cash-amount').value;
+        if(cashAmount){ message += `*Pagaré con: $${parseFloat(cashAmount).toFixed(2)}*\n`; }
+      }
 
-        document.getElementById('theme-toggle-button').addEventListener('click', toggleDarkMode);
+      const street=document.getElementById('street-input').value;
+      const colony=document.getElementById('colony-input').value;
+      const reference=document.getElementById('reference-input').value;
+      if(street && colony){
+        deliveryAddress = `*Dirección de Entrega:*\nCalle y Número: ${street}\nColonia: ${colony}\n`;
+        if(reference){ deliveryAddress += `Referencias: ${reference}\n`; }
+        message += deliveryAddress;
+      } else { message += `*Dirección de Entrega: Tu sabes donde vivo 😅👌*\n`; }
 
-        // Carga el tema guardado al cargar la página
-        document.addEventListener('DOMContentLoaded', () => {
-            const now = new Date();
-            const day = now.getDay();
-            const hour = now.getHours();
+      const encoded = encodeURIComponent(message);
+      const url = `https://wa.me/${phoneNumber}?text=${encoded}`;
+      window.open(url,'_blank');
+    }
 
-            const isWeekend = day === 4 || day === 6; // 5 = viernes, 6 = sábado
-            const isClosed = (hour < 10 || hour >= 22) && !isWeekend;
+    // Modal de bienvenida
+    document.getElementById('start-order-button').addEventListener('click', ()=>{
+      const v = validateName(nameInput.value);
+      if(!v.ok){ openAppModal(v.msg,'Nombre inválido'); return; }
+      clientName = nameInput.value.trim();
+      document.getElementById('welcome-modal').classList.add('hidden');
+      document.getElementById('main-content').classList.remove('hidden');
+      renderMenu();
+    });
 
-            if (isClosed) {
-                document.getElementById('closed-banner').classList.remove('hidden');
-            } else {
-                document.getElementById('welcome-modal').classList.remove('hidden');
-            }
+    // Tema oscuro
+    function toggleDarkMode(){
+      const body=document.body; const icon=document.getElementById('theme-icon');
+      body.classList.toggle('dark-mode');
+      if(body.classList.contains('dark-mode')){ localStorage.setItem('theme','dark'); icon.textContent='🌙'; }
+      else { localStorage.setItem('theme','light'); icon.textContent='☀️'; }
+    }
+    document.getElementById('theme-toggle-button').addEventListener('click', toggleDarkMode);
 
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.getElementById('theme-icon').textContent = '🌙';
-            }
-        });
+    // Estado inicial
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const now=new Date(); const day=now.getDay(); const hour=now.getHours();
+      const isWeekend = day===5 || day===6; // viernes/sábado
+      const isClosed = (hour < 10 || hour >= 22) && !isWeekend;
+      if(isClosed){ document.getElementById('closed-banner').classList.remove('hidden'); }
+      else { document.getElementById('welcome-modal').classList.remove('hidden'); }
+      const savedTheme=localStorage.getItem('theme'); if(savedTheme==='dark'){ document.body.classList.add('dark-mode'); document.getElementById('theme-icon').textContent='🌙'; }
+    });
 
-        // Lógica para cerrar el banner de cerrado con 5 clics
-        let clickCount = 0;
-        document.getElementById('closed-banner-close-btn').addEventListener('click', () => {
-            clickCount++;
-            if (clickCount === 5) {
-                document.getElementById('closed-banner').classList.add('hidden');
-                document.getElementById('welcome-modal').classList.remove('hidden');
-            }
-        });
-    </script>
+    // Cerrar banner con 5 clics
+    let clickCount=0; document.getElementById('closed-banner-close-btn').addEventListener('click',()=>{ clickCount++; if(clickCount===5){ document.getElementById('closed-banner').classList.add('hidden'); document.getElementById('welcome-modal').classList.remove('hidden'); }});
+  </script>
 </body>
-
 </html>
